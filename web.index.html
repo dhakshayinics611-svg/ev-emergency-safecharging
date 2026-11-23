@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EV SafeGuard | Safe Charging &amp; Emergency Help</title>
+<meta name="description" content="Safe charging in monsoon rain and quick help in an EV emergency.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EV SafeGuard | Safe Charging &amp; Emergency Help">
+<meta property="og:description" content="Safe charging in monsoon rain and quick help in an EV emergency.">
+<style>
+:root{--bg:#f1f5f6;--bar:#ffffff;--fg:#14262b;--muted:#4d6369;--line:#cbd8db;--accent:#0b6e8a;--at:#ffffff}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1a1e;--bar:#14262b;--fg:#e3eef0;--muted:#9db4ba;--line:#2a434a;--accent:#4cc3e0;--at:#062028}}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{display:flex;flex-direction:column;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:var(--bar);border-bottom:1px solid var(--line);padding:env(safe-area-inset-top,0px) max(12px,env(safe-area-inset-right,0px)) 0 max(12px,env(safe-area-inset-left,0px))}
+.top{max-width:960px;margin:0 auto;padding:10px 0 0}
+.kicker{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+nav{display:flex;gap:6px;overflow-x:auto;padding:8px 0 10px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{flex:0 0 auto;font:inherit;font-size:.92rem;font-weight:600;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:999px;padding:8px 15px;cursor:pointer}
+nav button[aria-selected="true"]{background:var(--accent);border-color:var(--accent);color:var(--at)}
+nav button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+main{flex:1;min-height:0;position:relative}
+iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:var(--bg)}
+iframe[hidden]{display:none}
+.kr{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.zc{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--muted)}
+.zc button{font:inherit;font-size:.85rem;font-weight:700;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer}
+</style></head><body>
+<header><div class="top"><div class="kr"><div class="kicker">EV SafeGuard</div><div class="zc" role="group" aria-label="Screen size for projector"><span>Projector size</span><button type="button" id="zo" aria-label="Smaller">A−</button><button type="button" id="zi" aria-label="Larger">A+</button></div></div>
+<nav role="tablist" aria-label="Prototype sections"><button role="tab" id="t-flood" aria-controls="f-flood" aria-selected="true" data-k="flood">Safe Charge</button><button role="tab" id="t-help" aria-controls="f-help" aria-selected="false" data-k="help">Emergency Help</button></nav></div></header>
+<main><iframe id="f-flood" role="tabpanel" aria-labelledby="t-flood" title="Monsoon Safe Charge" srcdoc="&lt;title&gt;Monsoon Safe Charge&lt;/title&gt;
+&lt;meta name=&quot;claude:viewport-fit-sides&quot; content=&quot;cover&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
+&lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+&lt;link rel=&quot;stylesheet&quot; href=&quot;https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap&quot;&gt;
+&lt;style&gt;
+/* Layout: one column on phones; simulator splits into scene + controls from 760px up, station cards go two across. */
+:root {
+  --bg: #f1f5f6;
+  --surface: #ffffff;
+  --surface-2: #e7eef0;
+  --fg: #14262b;
+  --muted: #4d6369;
+  --line: #cbd8db;
+  --accent: #0b6e8a;
+  --accent-fg: #ffffff;
+  --ok: #17703f;
+  --ok-bg: #dff1e6;
+  --warn: #8a5200;
+  --warn-bg: #fcefd2;
+  --bad: #a8231b;
+  --bad-bg: #fbe3e0;
+  --sky: #e3edf1;
+  --ground: #b8c6ca;
+  --station: #2c4a52;
+  --panel: #3f636b;
+  --socket: #10222a;
+  --cover: #0b6e8a;
+  --water: #2f8fb5;
+  --rain: #4f86a0;
+  --font-display: &quot;Bricolage Grotesque&quot;, &quot;Segoe UI&quot;, system-ui, sans-serif;
+  --font-body: &quot;IBM Plex Sans&quot;, &quot;Segoe UI&quot;, system-ui, sans-serif;
+  --font-mono: &quot;IBM Plex Mono&quot;, ui-monospace, &quot;SF Mono&quot;, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme=&quot;light&quot;]) {
+    --bg: #0d1a1e;
+    --surface: #14262b;
+    --surface-2: #1b3036;
+    --fg: #e3eef0;
+    --muted: #9db4ba;
+    --line: #2a434a;
+    --accent: #4cc3e0;
+    --accent-fg: #062028;
+    --ok: #62d394;
+    --ok-bg: #163826;
+    --warn: #f0b955;
+    --warn-bg: #3a2d10;
+    --bad: #ff8d83;
+    --bad-bg: #421b19;
+    --sky: #112429;
+    --ground: #23383e;
+    --station: #3f6670;
+    --panel: #56808a;
+    --socket: #091316;
+    --cover: #4cc3e0;
+    --water: #2f8fb5;
+    --rain: #86b9cc;
+    color-scheme: dark;
+  }
+}
+:root[data-theme=&quot;dark&quot;] {
+  --bg: #0d1a1e;
+  --surface: #14262b;
+  --surface-2: #1b3036;
+  --fg: #e3eef0;
+  --muted: #9db4ba;
+  --line: #2a434a;
+  --accent: #4cc3e0;
+  --accent-fg: #062028;
+  --ok: #62d394;
+  --ok-bg: #163826;
+  --warn: #f0b955;
+  --warn-bg: #3a2d10;
+  --bad: #ff8d83;
+  --bad-bg: #421b19;
+  --sky: #112429;
+  --ground: #23383e;
+  --station: #3f6670;
+  --panel: #56808a;
+  --socket: #091316;
+  --cover: #4cc3e0;
+  --water: #2f8fb5;
+  --rain: #86b9cc;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  padding-block: 20px 40px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 960px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.15; }
+h1 { font-size: clamp(1.9rem, 6vw, 2.6rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1rem; font-weight: 600; }
+p { margin: 0; }
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+header { display: flex; flex-direction: column; gap: 10px; padding-block: 4px 0; }
+header p { color: var(--muted); max-width: 62ch; }
+.note {
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-left: 2px solid var(--line);
+  padding-left: 10px;
+  max-width: 62ch;
+}
+
+.panel-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sim-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+.scene { border-radius: 10px; overflow: hidden; border: 1px solid var(--line); background: var(--sky); min-width: 0; }
+.scene svg { display: block; width: 100%; height: auto; max-width: 100%; }
+.side { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+
+.banner {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 12px 14px; border-radius: 10px;
+  background: var(--ok-bg); color: var(--ok);
+}
+.banner strong { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; }
+.banner span { font-size: 0.9rem; color: var(--fg); }
+[data-state=&quot;rain&quot;] .banner { background: var(--warn-bg); color: var(--warn); }
+[data-state=&quot;flood&quot;] .banner, [data-state=&quot;lock&quot;] .banner { background: var(--bad-bg); color: var(--bad); }
+
+.controls { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.row label, .row .lbl { font-weight: 500; }
+.row .sub { display: block; font-size: 0.8rem; color: var(--muted); font-weight: 400; }
+.switch {
+  appearance: none; border: 1px solid var(--line); background: var(--surface-2);
+  width: 52px; height: 30px; border-radius: 999px; position: relative; cursor: pointer; flex: none;
+  transition: background 0.2s, border-color 0.2s;
+}
+.switch::after {
+  content: &quot;&quot;; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%;
+  background: var(--muted); transition: transform 0.2s, background 0.2s;
+}
+.switch[aria-checked=&quot;true&quot;] { background: var(--accent); border-color: var(--accent); }
+.switch[aria-checked=&quot;true&quot;]::after { transform: translateX(22px); background: var(--accent-fg); }
+input[type=&quot;range&quot;] { width: 100%; accent-color: var(--accent); height: 28px; margin: 0; }
+.pct { font-family: var(--font-mono); font-weight: 500; font-variant-numeric: tabular-nums; min-width: 4ch; text-align: right; }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn {
+  font: inherit; font-weight: 600; cursor: pointer;
+  border-radius: 8px; padding: 9px 16px; border: 1px solid var(--line);
+  background: var(--surface-2); color: var(--fg);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.signals { display: flex; flex-direction: column; margin: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.signals &gt; div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 12px; font-size: 0.88rem; }
+.signals &gt; div + div { border-top: 1px solid var(--line); }
+.signals dt { color: var(--muted); }
+.signals dd { margin: 0; font-family: var(--font-mono); font-variant-numeric: tabular-nums; text-align: right; min-width: 0; }
+.signals-title { display: flex; flex-direction: column; gap: 2px; }
+.signals-title span { font-size: 0.82rem; color: var(--muted); }
+
+/* scene colours and motion */
+.sky { fill: var(--sky); }
+.ground { fill: var(--ground); }
+.body { fill: var(--station); }
+.hood { fill: var(--panel); }
+.sock { fill: var(--socket); }
+.pin { fill: var(--panel); }
+.cover { fill: var(--cover); transform-box: fill-box; transform-origin: top; transform: scaleY(0.12); transition: transform 0.6s ease; }
+[data-rain=&quot;true&quot;] .cover { transform: scaleY(1); }
+.lamp { fill: var(--ok); }
+[data-state=&quot;rain&quot;] .lamp { fill: var(--warn); }
+[data-state=&quot;flood&quot;] .lamp, [data-state=&quot;lock&quot;] .lamp { fill: var(--bad); }
+[data-state=&quot;flood&quot;] .lamp { animation: blink 0.8s steps(2, jump-none) infinite; }
+.water { fill: var(--water); opacity: 0.6; transition: y 0.2s linear, height 0.2s linear; }
+.thr { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 4; }
+.thr-t { fill: var(--muted); font: 500 10px var(--font-mono); paint-order: stroke; stroke: var(--sky); stroke-width: 3px; }
+.cloud { fill: var(--rain); opacity: 0; transition: opacity 0.4s; }
+.rain { opacity: 0; transition: opacity 0.4s; }
+[data-rain=&quot;true&quot;] .cloud { opacity: 0.55; }
+[data-rain=&quot;true&quot;] .rain { opacity: 1; }
+.drop { stroke: var(--rain); stroke-width: 1.6; stroke-linecap: round; animation: fall 0.9s linear infinite; }
+@keyframes fall { from { transform: translateY(-10px); } to { transform: translateY(190px); } }
+@keyframes blink { 50% { opacity: 0.25; } }
+
+/* dashboard */
+.dash-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.dash-head p { color: var(--muted); font-size: 0.9rem; }
+.filter { display: flex; align-items: center; gap: 10px; font-weight: 500; }
+.cards { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.card {
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--surface);
+  display: flex; flex-direction: column; gap: 8px; min-width: 0;
+}
+.card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.card h3 { overflow-wrap: anywhere; }
+.area { font-size: 0.82rem; color: var(--muted); }
+.tag {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; color: var(--muted); white-space: nowrap; flex: none;
+}
+.tag.live { color: var(--accent); border-color: var(--accent); }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;
+  padding: 4px 10px; border-radius: 999px; font-weight: 600; font-size: 0.85rem;
+  background: var(--ok-bg); color: var(--ok);
+}
+.chip::before { content: &quot;&quot;; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.card[data-s=&quot;rain&quot;] .chip { background: var(--warn-bg); color: var(--warn); }
+.card[data-s=&quot;flood&quot;] .chip { background: var(--bad-bg); color: var(--bad); }
+.card .detail { font-size: 0.85rem; color: var(--muted); }
+.count { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+.empty { padding: 18px; border: 1px dashed var(--line); border-radius: 10px; color: var(--muted); text-align: center; }
+
+/* signal chain */
+.chain { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.chain li { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; background: var(--surface); }
+.flow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-family: var(--font-mono); font-size: 0.8rem; }
+.flow b { font-weight: 500; background: var(--surface-2); border-radius: 6px; padding: 3px 8px; }
+.flow i { font-style: normal; color: var(--muted); }
+.chain p { font-size: 0.88rem; color: var(--muted); }
+
+@media (min-width: 760px) {
+  .sim-grid { grid-template-columns: 1.15fr 1fr; align-items: start; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .chain { grid-template-columns: repeat(3, 1fr); }
+  .panel-card { padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drop, [data-state=&quot;flood&quot;] .lamp { animation: none; }
+  .cover, .water, .switch, .switch::after { transition: none; }
+}
+&lt;/style&gt;
+
+&lt;main class=&quot;wrap&quot;&gt;
+  &lt;header&gt;
+    &lt;span class=&quot;kicker&quot;&gt;EV charging safety&lt;/span&gt;
+    &lt;h1&gt;Monsoon Safe Charge&lt;/h1&gt;
+    &lt;p&gt;A charging station that protects its socket from rain, cuts power when water rises, and tells drivers which stations are safe before they arrive.&lt;/p&gt;
+    &lt;p class=&quot;note&quot;&gt;This is a simulation of the planned hardware. The rain switch and water slider stand in for the real sensors, and everything runs on low voltage in the actual prototype plan.&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;section class=&quot;panel-card&quot; id=&quot;sim&quot; data-state=&quot;safe&quot; data-rain=&quot;false&quot; aria-labelledby=&quot;sim-h&quot;&gt;
+    &lt;h2 id=&quot;sim-h&quot;&gt;Monsoon safety simulator&lt;/h2&gt;
+    &lt;div class=&quot;sim-grid&quot;&gt;
+      &lt;div class=&quot;scene&quot;&gt;
+        &lt;svg viewBox=&quot;0 0 320 250&quot; role=&quot;img&quot; aria-label=&quot;Charging station with a socket cover, a rain cloud and a rising water level at its base&quot;&gt;
+          &lt;rect class=&quot;sky&quot; x=&quot;0&quot; y=&quot;0&quot; width=&quot;320&quot; height=&quot;250&quot;/&gt;
+          &lt;g class=&quot;cloud&quot;&gt;
+            &lt;ellipse cx=&quot;70&quot; cy=&quot;26&quot; rx=&quot;34&quot; ry=&quot;14&quot;/&gt;
+            &lt;ellipse cx=&quot;100&quot; cy=&quot;20&quot; rx=&quot;26&quot; ry=&quot;14&quot;/&gt;
+            &lt;ellipse cx=&quot;250&quot; cy=&quot;30&quot; rx=&quot;36&quot; ry=&quot;14&quot;/&gt;
+            &lt;ellipse cx=&quot;222&quot; cy=&quot;24&quot; rx=&quot;24&quot; ry=&quot;13&quot;/&gt;
+          &lt;/g&gt;
+          &lt;rect class=&quot;ground&quot; x=&quot;0&quot; y=&quot;200&quot; width=&quot;320&quot; height=&quot;50&quot;/&gt;
+          &lt;rect class=&quot;body&quot; x=&quot;120&quot; y=&quot;38&quot; width=&quot;80&quot; height=&quot;162&quot; rx=&quot;12&quot;/&gt;
+          &lt;circle class=&quot;lamp&quot; id=&quot;lamp&quot; cx=&quot;160&quot; cy=&quot;62&quot; r=&quot;9&quot;/&gt;
+          &lt;rect class=&quot;hood&quot; x=&quot;134&quot; y=&quot;86&quot; width=&quot;52&quot; height=&quot;60&quot; rx=&quot;9&quot;/&gt;
+          &lt;circle class=&quot;sock&quot; cx=&quot;160&quot; cy=&quot;116&quot; r=&quot;15&quot;/&gt;
+          &lt;circle class=&quot;pin&quot; cx=&quot;153&quot; cy=&quot;112&quot; r=&quot;2.5&quot;/&gt;
+          &lt;circle class=&quot;pin&quot; cx=&quot;167&quot; cy=&quot;112&quot; r=&quot;2.5&quot;/&gt;
+          &lt;circle class=&quot;pin&quot; cx=&quot;160&quot; cy=&quot;124&quot; r=&quot;2.5&quot;/&gt;
+          &lt;rect class=&quot;cover&quot; x=&quot;132&quot; y=&quot;84&quot; width=&quot;56&quot; height=&quot;64&quot; rx=&quot;9&quot;/&gt;
+          &lt;rect class=&quot;water&quot; id=&quot;waterRect&quot; x=&quot;0&quot; y=&quot;200&quot; width=&quot;320&quot; height=&quot;0&quot;/&gt;
+          &lt;line class=&quot;thr&quot; x1=&quot;0&quot; y1=&quot;164&quot; x2=&quot;320&quot; y2=&quot;164&quot;/&gt;
+          &lt;text class=&quot;thr-t&quot; x=&quot;314&quot; y=&quot;160&quot; text-anchor=&quot;end&quot;&gt;30% power cut&lt;/text&gt;
+          &lt;line class=&quot;thr&quot; x1=&quot;0&quot; y1=&quot;128&quot; x2=&quot;320&quot; y2=&quot;128&quot;/&gt;
+          &lt;text class=&quot;thr-t&quot; x=&quot;314&quot; y=&quot;124&quot; text-anchor=&quot;end&quot;&gt;60% locked&lt;/text&gt;
+          &lt;g class=&quot;rain&quot; id=&quot;rainDrops&quot;&gt;&lt;/g&gt;
+        &lt;/svg&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;side&quot;&gt;
+        &lt;div class=&quot;banner&quot; id=&quot;banner&quot; role=&quot;status&quot; aria-live=&quot;polite&quot;&gt;
+          &lt;strong id=&quot;stLabel&quot;&gt;Safe to charge&lt;/strong&gt;
+          &lt;span id=&quot;stNote&quot;&gt;Cover open, power on, green light.&lt;/span&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;controls&quot;&gt;
+          &lt;div class=&quot;row&quot;&gt;
+            &lt;div class=&quot;lbl&quot;&gt;Rain sensor&lt;span class=&quot;sub&quot;&gt;Switch on to start rain&lt;/span&gt;&lt;/div&gt;
+            &lt;button class=&quot;switch&quot; id=&quot;rainSw&quot; role=&quot;switch&quot; aria-checked=&quot;false&quot; aria-label=&quot;Rain&quot;&gt;&lt;/button&gt;
+          &lt;/div&gt;
+          &lt;div&gt;
+            &lt;div class=&quot;row&quot;&gt;
+              &lt;label for=&quot;water&quot;&gt;Water level at base&lt;span class=&quot;sub&quot;&gt;Drag to raise the flood&lt;/span&gt;&lt;/label&gt;
+              &lt;span class=&quot;pct&quot; id=&quot;pct&quot;&gt;0%&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;input type=&quot;range&quot; id=&quot;water&quot; min=&quot;0&quot; max=&quot;100&quot; step=&quot;1&quot; value=&quot;0&quot;&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;btns&quot;&gt;
+            &lt;button class=&quot;btn primary&quot; id=&quot;demo&quot; type=&quot;button&quot;&gt;Play demo&lt;/button&gt;
+            &lt;button class=&quot;btn&quot; id=&quot;reset&quot; type=&quot;button&quot;&gt;Reset&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;signals-title&quot;&gt;
+      &lt;h3&gt;What the Arduino sees and does&lt;/h3&gt;
+      &lt;span&gt;Updates live as you change the controls.&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;dl class=&quot;signals&quot;&gt;
+      &lt;div&gt;&lt;dt&gt;Rain sensor&lt;/dt&gt;&lt;dd id=&quot;sRain&quot;&gt;LOW&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Servo motor&lt;/dt&gt;&lt;dd id=&quot;sServo&quot;&gt;0° · cover open&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Water sensor&lt;/dt&gt;&lt;dd id=&quot;sWater&quot;&gt;0%&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Relay&lt;/dt&gt;&lt;dd id=&quot;sRelay&quot;&gt;ON · power flowing&lt;/dd&gt;&lt;/div&gt;
+      &lt;div&gt;&lt;dt&gt;Indicator LED&lt;/dt&gt;&lt;dd id=&quot;sLed&quot;&gt;GREEN&lt;/dd&gt;&lt;/div&gt;
+    &lt;/dl&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;panel-card&quot; aria-labelledby=&quot;dash-h&quot;&gt;
+    &lt;div class=&quot;dash-head&quot;&gt;
+      &lt;div&gt;
+        &lt;h2 id=&quot;dash-h&quot;&gt;Station status app&lt;/h2&gt;
+        &lt;p&gt;What a driver sees before choosing where to charge.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;filter&quot;&gt;
+        &lt;span id=&quot;filterLbl&quot;&gt;Safe stations only&lt;/span&gt;
+        &lt;button class=&quot;switch&quot; id=&quot;filterSw&quot; role=&quot;switch&quot; aria-checked=&quot;false&quot; aria-labelledby=&quot;filterLbl&quot;&gt;&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;count&quot; id=&quot;count&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;cards&quot; id=&quot;cards&quot;&gt;&lt;/div&gt;
+    &lt;p class=&quot;note&quot;&gt;Station 1 follows the simulator above. Stations 2 to 4 are sample data. The filter hides stations with flood detected.&lt;/p&gt;
+  &lt;/section&gt;
+
+  &lt;section class=&quot;panel-card&quot; aria-labelledby=&quot;how-h&quot;&gt;
+    &lt;h2 id=&quot;how-h&quot;&gt;How the parts connect&lt;/h2&gt;
+    &lt;ul class=&quot;chain&quot;&gt;
+      &lt;li&gt;
+        &lt;h3&gt;Rain protection&lt;/h3&gt;
+        &lt;div class=&quot;flow&quot;&gt;&lt;b&gt;Rain sensor&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;Arduino&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;Servo&lt;/b&gt;&lt;/div&gt;
+        &lt;p&gt;The servo turns to 90° and closes the cover over the socket.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;h3&gt;Flood protection&lt;/h3&gt;
+        &lt;div class=&quot;flow&quot;&gt;&lt;b&gt;Water sensor&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;Arduino&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;Relay + LED&lt;/b&gt;&lt;/div&gt;
+        &lt;p&gt;Above 30% water the relay cuts power and the red LED warns people. Above 60% the station locks.&lt;/p&gt;
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;h3&gt;Status for drivers&lt;/h3&gt;
+        &lt;div class=&quot;flow&quot;&gt;&lt;b&gt;Arduino&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;Server&lt;/b&gt;&lt;i&gt;→&lt;/i&gt;&lt;b&gt;App&lt;/b&gt;&lt;/div&gt;
+        &lt;p&gt;Each station reports Safe, Rain with cover closed, or Flood detected.&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/section&gt;
+&lt;/main&gt;
+
+&lt;script&gt;
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var state = { rain: false, water: 0 };
+  var onlySafe = false;
+  var sim = $(&#x27;sim&#x27;);
+
+  // rain drops
+  var drops = $(&#x27;rainDrops&#x27;);
+  var ns = &#x27;http://www.w3.org/2000/svg&#x27;;
+  for (var i = 0; i &lt; 18; i++) {
+    var x = 10 + i * 17.5;
+    var l = document.createElementNS(ns, &#x27;line&#x27;);
+    l.setAttribute(&#x27;class&#x27;, &#x27;drop&#x27;);
+    l.setAttribute(&#x27;x1&#x27;, x); l.setAttribute(&#x27;x2&#x27;, x - 3);
+    l.setAttribute(&#x27;y1&#x27;, 40 + (i % 4) * 8); l.setAttribute(&#x27;y2&#x27;, 52 + (i % 4) * 8);
+    l.style.animationDelay = (-(i * 0.17) % 0.9).toFixed(2) + &#x27;s&#x27;;
+    l.style.animationDuration = (0.8 + (i % 3) * 0.12).toFixed(2) + &#x27;s&#x27;;
+    drops.appendChild(l);
+  }
+
+  function compute() {
+    var w = Math.round(state.water);
+    if (w &gt;= 60) return { key: &#x27;lock&#x27;, card: &#x27;flood&#x27;, label: &#x27;Flood, do not use&#x27;, note: &#x27;Power is cut and the station is locked.&#x27;, relay: false, led: &#x27;RED&#x27; };
+    if (w &gt;= 30) return { key: &#x27;flood&#x27;, card: &#x27;flood&#x27;, label: &#x27;Flood warning&#x27;, note: &#x27;Water at the base. Relay cut the power, red light is blinking.&#x27;, relay: false, led: &#x27;RED (blinking)&#x27; };
+    if (state.rain) return { key: &#x27;rain&#x27;, card: &#x27;rain&#x27;, label: &#x27;Rain, cover closed&#x27;, note: &#x27;Socket is protected. Charging is still available.&#x27;, relay: true, led: &#x27;AMBER&#x27; };
+    return { key: &#x27;safe&#x27;, card: &#x27;safe&#x27;, label: &#x27;Safe to charge&#x27;, note: &#x27;Cover open, power on, green light.&#x27;, relay: true, led: &#x27;GREEN&#x27; };
+  }
+
+  var CHIP = { safe: &#x27;Safe to charge&#x27;, rain: &#x27;Rain, cover closed&#x27;, flood: &#x27;Flood detected&#x27; };
+  var DETAIL = {
+    safe: &#x27;All sensors normal.&#x27;,
+    rain: &#x27;Socket protected. Charging available.&#x27;,
+    flood: &#x27;Power cut. Avoid this station.&#x27;
+  };
+  var stations = [
+    { name: &#x27;Station 1&#x27;, area: &#x27;Raghuvanahalli&#x27;, live: true },
+    { name: &#x27;Station 2&#x27;, area: &#x27;Kanakapura Road&#x27;, s: &#x27;safe&#x27; },
+    { name: &#x27;Station 3&#x27;, area: &#x27;Banashankari&#x27;, s: &#x27;flood&#x27; },
+    { name: &#x27;Station 4&#x27;, area: &#x27;Konanakunte&#x27;, s: &#x27;rain&#x27; }
+  ];
+
+  function renderCards(liveCard) {
+    var shown = 0, html = &#x27;&#x27;;
+    stations.forEach(function (st) {
+      var s = st.live ? liveCard : st.s;
+      if (onlySafe &amp;&amp; s === &#x27;flood&#x27;) return;
+      shown++;
+      html += &#x27;&lt;article class=&quot;card&quot; data-s=&quot;&#x27; + s + &#x27;&quot;&gt;&#x27; +
+        &#x27;&lt;div class=&quot;card-top&quot;&gt;&lt;div&gt;&lt;h3&gt;&#x27; + st.name + &#x27;&lt;/h3&gt;&lt;div class=&quot;area&quot;&gt;&#x27; + st.area + &#x27;&lt;/div&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;span class=&quot;tag&#x27; + (st.live ? &#x27; live&#x27; : &#x27;&#x27;) + &#x27;&quot;&gt;&#x27; + (st.live ? &#x27;Live&#x27; : &#x27;Sample&#x27;) + &#x27;&lt;/span&gt;&lt;/div&gt;&#x27; +
+        &#x27;&lt;span class=&quot;chip&quot;&gt;&#x27; + CHIP[s] + &#x27;&lt;/span&gt;&#x27; +
+        &#x27;&lt;div class=&quot;detail&quot;&gt;&#x27; + DETAIL[s] + &#x27;&lt;/div&gt;&lt;/article&gt;&#x27;;
+    });
+    $(&#x27;cards&#x27;).innerHTML = html || &#x27;&lt;div class=&quot;empty&quot;&gt;No safe stations right now. Turn off the filter to see all stations.&lt;/div&gt;&#x27;;
+    $(&#x27;count&#x27;).textContent = &#x27;Showing &#x27; + shown + &#x27; of &#x27; + stations.length + &#x27; stations&#x27;;
+  }
+
+  function render() {
+    var c = compute();
+    var w = Math.round(state.water);
+    sim.setAttribute(&#x27;data-state&#x27;, c.key);
+    sim.setAttribute(&#x27;data-rain&#x27;, state.rain ? &#x27;true&#x27; : &#x27;false&#x27;);
+    $(&#x27;rainSw&#x27;).setAttribute(&#x27;aria-checked&#x27;, state.rain ? &#x27;true&#x27; : &#x27;false&#x27;);
+    $(&#x27;water&#x27;).value = w;
+    $(&#x27;pct&#x27;).textContent = w + &#x27;%&#x27;;
+    $(&#x27;stLabel&#x27;).textContent = c.label;
+    $(&#x27;stNote&#x27;).textContent = c.note;
+    var h = Math.round(w * 1.2);
+    var wr = $(&#x27;waterRect&#x27;);
+    wr.setAttribute(&#x27;y&#x27;, 200 - h);
+    wr.setAttribute(&#x27;height&#x27;, h);
+    $(&#x27;sRain&#x27;).textContent = state.rain ? &#x27;HIGH&#x27; : &#x27;LOW&#x27;;
+    $(&#x27;sServo&#x27;).textContent = state.rain ? &#x27;90° · cover closed&#x27; : &#x27;0° · cover open&#x27;;
+    $(&#x27;sWater&#x27;).textContent = w + &#x27;%&#x27;;
+    $(&#x27;sRelay&#x27;).textContent = c.relay ? &#x27;ON · power flowing&#x27; : &#x27;OFF · power cut&#x27;;
+    $(&#x27;sLed&#x27;).textContent = c.led;
+    renderCards(c.card);
+  }
+
+  // demo
+  var timer = null;
+  function stopDemo() {
+    if (timer) { clearInterval(timer); timer = null; }
+    $(&#x27;demo&#x27;).textContent = &#x27;Play demo&#x27;;
+  }
+  function playDemo() {
+    if (timer) { stopDemo(); return; }
+    state.rain = false; state.water = 0; render();
+    $(&#x27;demo&#x27;).textContent = &#x27;Stop demo&#x27;;
+    var t = 0, phase = 0, mark = 0;
+    timer = setInterval(function () {
+      t += 120;
+      if (phase === 0 &amp;&amp; t &gt;= 1200) { state.rain = true; phase = 1; }
+      else if (phase === 1 &amp;&amp; t &gt;= 3000) { phase = 2; }
+      else if (phase === 2) { state.water += 1.5; if (state.water &gt;= 70) { state.water = 70; mark = t; phase = 3; } }
+      else if (phase === 3 &amp;&amp; t - mark &gt;= 2400) { phase = 4; }
+      else if (phase === 4) { state.water -= 3; if (state.water &lt;= 0) { state.water = 0; mark = t; phase = 5; } }
+      else if (phase === 5 &amp;&amp; t - mark &gt;= 1200) { state.rain = false; render(); stopDemo(); return; }
+      render();
+    }, 120);
+  }
+
+  $(&#x27;rainSw&#x27;).addEventListener(&#x27;click&#x27;, function () { stopDemo(); state.rain = !state.rain; render(); });
+  $(&#x27;water&#x27;).addEventListener(&#x27;input&#x27;, function (e) { stopDemo(); state.water = +e.target.value; render(); });
+  $(&#x27;reset&#x27;).addEventListener(&#x27;click&#x27;, function () { stopDemo(); state.rain = false; state.water = 0; render(); });
+  $(&#x27;demo&#x27;).addEventListener(&#x27;click&#x27;, playDemo);
+  $(&#x27;filterSw&#x27;).addEventListener(&#x27;click&#x27;, function () {
+    onlySafe = !onlySafe;
+    this.setAttribute(&#x27;aria-checked&#x27;, onlySafe ? &#x27;true&#x27; : &#x27;false&#x27;);
+    render();
+  });
+
+  render();
+})();
+&lt;/script&gt;
+"></iframe><iframe id="f-help" role="tabpanel" aria-labelledby="t-help" title="EV Emergency Help" srcdoc="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;&lt;head&gt;&lt;meta charset=&quot;utf-8&quot;&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1, viewport-fit=cover&quot;&gt;
+&lt;title&gt;EV Emergency Help&lt;/title&gt;
+&lt;style&gt;
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#000;--card:#0b0f11;--text:#e6eef2;--muted:#9bb0ba;--line:#26383f;--accent:#46c3e6;--at:#06242d}
+
+
+html{color-scheme:dark}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);line-height:1.5;font-family:system-ui,-apple-system,&quot;Segoe UI&quot;,sans-serif}
+main{max-width:760px;margin:0 auto;padding:18px 14px 36px}
+h1{font-size:1.45rem;margin:0 0 6px}h2{font-size:1.15rem;margin:0 0 4px}h3{font-size:.95rem;margin:14px 0 0}
+.sub,.muted{color:var(--muted);font-size:.9rem}
+.note{border-left:3px solid var(--line);padding:4px 10px;margin:12px 0;color:var(--muted);font-size:.88rem}
+section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+.scr{background:#0b1217;color:#e6eef2;border:6px solid #2a3a43;border-radius:20px;padding:12px;margin-top:12px}
+.bar{display:flex;justify-content:space-between;font-size:.95rem;font-weight:600;margin-bottom:8px}
+.al{border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.al b{display:block;font-size:1.05rem}.al span{font-size:.88rem}
+.ok{background:rgba(46,158,91,.25);color:#6fe0a0}.warn{background:rgba(217,154,26,.25);color:#ffc857}.bad{background:rgba(224,82,82,.28);color:#ff8f8f}
+.scr svg{width:100%;height:auto;border-radius:10px;display:block}
+.nav{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:8px;font-size:.9rem}
+.scr ul,.scr ol{margin:6px 0 0;padding-left:20px;font-size:.9rem}
+.ctl{margin-top:12px}
+label{display:flex;justify-content:space-between;margin:10px 0 2px;font-size:.95rem}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.tg{display:flex;justify-content:space-between;align-items:center;margin:10px 0}
+.tg input{width:22px;height:22px;accent-color:var(--accent)}
+button{background:var(--accent);color:var(--at);border:0;border-radius:10px;padding:9px 13px;font-size:.92rem;font-weight:600;cursor:pointer;margin:6px 6px 0 0}
+button.g{background:transparent;color:inherit;border:1px solid var(--line)}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:10px}
+.flow div{border:1px solid var(--line);border-radius:12px;padding:10px;font-size:.88rem}
+.road{stroke:#3b4d57;stroke-width:6;fill:none}.road2{stroke:#2b3a43;stroke-width:3;fill:none}
+.pin{cursor:pointer}
+&lt;/style&gt;&lt;/head&gt;&lt;body&gt;&lt;main&gt;
+&lt;h1&gt;EV Emergency Help&lt;/h1&gt;
+&lt;p class=&quot;sub&quot;&gt;A smart screen inside the EV that helps when the battery runs low, or gets hot or damaged.&lt;/p&gt;
+&lt;p class=&quot;note&quot;&gt;This is a software prototype. The controls below stand in for the vehicle’s live data, and the stations are sample data.&lt;/p&gt;
+
+&lt;section&gt;
+&lt;h2&gt;1. Battery almost empty&lt;/h2&gt;
+&lt;p class=&quot;muted&quot;&gt;The EV’s smart screen as the charge drops.&lt;/p&gt;
+&lt;div class=&quot;scr&quot; id=&quot;scr1&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;ctl&quot;&gt;&lt;h3&gt;Simulation control&lt;/h3&gt;
+&lt;label&gt;Battery level &lt;span id=&quot;v1&quot;&gt;&lt;/span&gt;&lt;/label&gt;&lt;input type=&quot;range&quot; id=&quot;r1&quot; min=&quot;0&quot; max=&quot;100&quot; value=&quot;60&quot;&gt;
+&lt;button class=&quot;g&quot; id=&quot;x1&quot;&gt;Reset&lt;/button&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+&lt;section&gt;
+&lt;h2&gt;2. Battery hot, smoke or an accident&lt;/h2&gt;
+&lt;p class=&quot;muted&quot;&gt;The same smart screen when the battery is in danger.&lt;/p&gt;
+&lt;div class=&quot;scr&quot; id=&quot;scr2&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;ctl&quot;&gt;&lt;h3&gt;Simulation controls&lt;/h3&gt;
+&lt;label&gt;Battery temperature &lt;span id=&quot;v2&quot;&gt;&lt;/span&gt;&lt;/label&gt;&lt;input type=&quot;range&quot; id=&quot;r2&quot; min=&quot;25&quot; max=&quot;90&quot; value=&quot;30&quot;&gt;
+&lt;div class=&quot;tg&quot;&gt;&lt;span&gt;Smoke detected&lt;/span&gt;&lt;input type=&quot;checkbox&quot; id=&quot;sm&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;tg&quot;&gt;&lt;span&gt;Crash detected&lt;/span&gt;&lt;input type=&quot;checkbox&quot; id=&quot;cr&quot;&gt;&lt;/div&gt;
+&lt;button class=&quot;g&quot; id=&quot;x2&quot;&gt;Reset&lt;/button&gt;&lt;/div&gt;
+&lt;/section&gt;
+
+
+&lt;p class=&quot;note&quot;&gt;Software demo only, not official safety instructions. Follow the vehicle manual and call 112 in an emergency.&lt;/p&gt;
+&lt;/main&gt;
+&lt;script&gt;
+var $=function(i){return document.getElementById(i)};
+var ST=[[&quot;A&quot;,8,215,88],[&quot;B&quot;,22,68,60],[&quot;C&quot;,45,250,170]],sel=0,vanOn=false,cd=null,tm=null,cancelled=false;
+var RT=[[150,140,150,88,215,88],[150,140,150,60,68,60],[150,140,250,140,250,170]];
+function map(rg){
+ var s=ST[sel],r=RT[sel],rd=&#x27;M0 140H300M150 0V200M0 88H300M215 0V200M68 0V200M0 60H150M250 140V200M0 170H300&#x27;;
+ var h=&#x27;&lt;svg viewBox=&quot;0 0 300 200&quot;&gt;&lt;rect width=&quot;300&quot; height=&quot;200&quot; fill=&quot;#e8e6e1&quot;/&gt;&lt;path d=&quot;M235 0H300V45Q270 55 250 35Q240 20 235 0Z&quot; fill=&quot;#aadaff&quot;/&gt;&lt;rect x=&quot;158&quot; y=&quot;94&quot; width=&quot;50&quot; height=&quot;40&quot; rx=&quot;6&quot; fill=&quot;#c8e6c9&quot;/&gt;&lt;rect x=&quot;76&quot; y=&quot;94&quot; width=&quot;68&quot; height=&quot;40&quot; rx=&quot;4&quot; fill=&quot;#f1efe9&quot;/&gt;&lt;rect x=&quot;76&quot; y=&quot;148&quot; width=&quot;68&quot; height=&quot;18&quot; rx=&quot;4&quot; fill=&quot;#f1efe9&quot;/&gt;&lt;rect x=&quot;160&quot; y=&quot;146&quot; width=&quot;80&quot; height=&quot;20&quot; rx=&quot;3&quot; fill=&quot;#f1efe9&quot;/&gt;&#x27;;
+ h+=&#x27;&lt;path d=&quot;&#x27;+rd+&#x27;&quot; stroke=&quot;#dadce0&quot; stroke-width=&quot;9&quot; fill=&quot;none&quot;/&gt;&lt;path d=&quot;&#x27;+rd+&#x27;&quot; stroke=&quot;#fff&quot; stroke-width=&quot;7&quot; fill=&quot;none&quot;/&gt;&lt;path d=&quot;M0 140H300M150 0V200&quot; stroke=&quot;#e0a92c&quot; stroke-width=&quot;9&quot; fill=&quot;none&quot;/&gt;&lt;path d=&quot;M0 140H300M150 0V200&quot; stroke=&quot;#fbd472&quot; stroke-width=&quot;7&quot; fill=&quot;none&quot;/&gt;&#x27;;
+ h+=&#x27;&lt;text x=&quot;10&quot; y=&quot;137&quot; font-size=&quot;7&quot; fill=&quot;#5f6368&quot;&gt;Main Road&lt;/text&gt;&lt;text x=&quot;166&quot; y=&quot;118&quot; font-size=&quot;7&quot; fill=&quot;#2e7d32&quot;&gt;Park&lt;/text&gt;&lt;text x=&quot;246&quot; y=&quot;22&quot; font-size=&quot;7&quot; fill=&quot;#1a73e8&quot;&gt;Lake&lt;/text&gt;&#x27;;
+ var pts=r[0]+&#x27;,&#x27;+r[1]+&#x27; &#x27;+r[2]+&#x27;,&#x27;+r[3]+&#x27; &#x27;+r[4]+&#x27;,&#x27;+r[5];
+ h+=&#x27;&lt;polyline points=&quot;&#x27;+pts+&#x27;&quot; fill=&quot;none&quot; stroke=&quot;#fff&quot; stroke-width=&quot;9&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;polyline points=&quot;&#x27;+pts+&#x27;&quot; fill=&quot;none&quot; stroke=&quot;#4285f4&quot; stroke-width=&quot;5&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;/&gt;&#x27;;
+ ST.forEach(function(t,i){var ok=t[1]&lt;=rg*0.9;h+=&#x27;&lt;g class=&quot;pin&quot; data-i=&quot;&#x27;+i+&#x27;&quot; transform=&quot;translate(&#x27;+t[2]+&#x27; &#x27;+t[3]+&#x27;) scale(&#x27;+(i===sel?1.2:1)+&#x27;)&quot;&gt;&lt;path d=&quot;M0 0C-6-9-12-14-12-22A12 12 0 1 1 12-22C12-14 6-9 0 0Z&quot; fill=&quot;&#x27;+(ok?&quot;#34a853&quot;:&quot;#ea4335&quot;)+&#x27;&quot; stroke=&quot;#fff&quot; stroke-width=&quot;1.5&quot;/&gt;&lt;text x=&quot;0&quot; y=&quot;-18&quot; text-anchor=&quot;middle&quot; fill=&quot;#fff&quot; font-size=&quot;12&quot; font-weight=&quot;700&quot;&gt;&#x27;+t[0]+&#x27;&lt;/text&gt;&lt;/g&gt;&#x27;});
+ h+=&#x27;&lt;circle cx=&quot;150&quot; cy=&quot;140&quot; r=&quot;14&quot; fill=&quot;rgba(66,133,244,.25)&quot;/&gt;&lt;circle cx=&quot;150&quot; cy=&quot;140&quot; r=&quot;6&quot; fill=&quot;#4285f4&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&#x27;;
+ h+=&#x27;&lt;rect x=&quot;8&quot; y=&quot;150&quot; width=&quot;20&quot; height=&quot;40&quot; rx=&quot;4&quot; fill=&quot;#fff&quot; stroke=&quot;#dadce0&quot;/&gt;&lt;text x=&quot;18&quot; y=&quot;166&quot; text-anchor=&quot;middle&quot; font-size=&quot;14&quot; fill=&quot;#5f6368&quot;&gt;+&lt;/text&gt;&lt;text x=&quot;18&quot; y=&quot;184&quot; text-anchor=&quot;middle&quot; font-size=&quot;14&quot; fill=&quot;#5f6368&quot;&gt;&amp;#8722;&lt;/text&gt;&lt;text x=&quot;294&quot; y=&quot;196&quot; text-anchor=&quot;end&quot; font-size=&quot;6&quot; fill=&quot;#5f6368&quot;&gt;Sample map&lt;/text&gt;&lt;/svg&gt;&#x27;;
+ return h}
+function map_old(rg){
+ var car=[150,115],s=ST[sel],h=&#x27;&lt;svg viewBox=&quot;0 0 300 170&quot;&gt;&lt;rect width=&quot;300&quot; height=&quot;170&quot; fill=&quot;#16242c&quot;/&gt;&lt;path class=&quot;road&quot; d=&quot;M0 120H300M150 0V170&quot;/&gt;&lt;path class=&quot;road2&quot; d=&quot;M0 60H300M60 0V170M240 0V170&quot;/&gt;&#x27;;
+ h+=&#x27;&lt;line x1=&quot;150&quot; y1=&quot;115&quot; x2=&quot;&#x27;+s[2]+&#x27;&quot; y2=&quot;&#x27;+s[3]+&#x27;&quot; stroke=&quot;#46c3e6&quot; stroke-width=&quot;3&quot; stroke-dasharray=&quot;6 5&quot;/&gt;&#x27;;
+ ST.forEach(function(t,i){var ok=t[1]&lt;=rg*0.9;h+=&#x27;&lt;g class=&quot;pin&quot; data-i=&quot;&#x27;+i+&#x27;&quot;&gt;&lt;circle cx=&quot;&#x27;+t[2]+&#x27;&quot; cy=&quot;&#x27;+t[3]+&#x27;&quot; r=&quot;&#x27;+(i===sel?15:12)+&#x27;&quot; fill=&quot;&#x27;+(ok?&quot;#2e9e5b&quot;:&quot;#7a3b3b&quot;)+&#x27;&quot; stroke=&quot;#fff&quot; stroke-width=&quot;&#x27;+(i===sel?3:1.5)+&#x27;&quot;/&gt;&lt;text x=&quot;&#x27;+t[2]+&#x27;&quot; y=&quot;&#x27;+(t[3]+5)+&#x27;&quot; text-anchor=&quot;middle&quot; fill=&quot;#fff&quot; font-size=&quot;14&quot; font-weight=&quot;700&quot;&gt;&#x27;+t[0]+&#x27;&lt;/text&gt;&lt;/g&gt;&#x27;});
+ return h+&#x27;&lt;circle cx=&quot;150&quot; cy=&quot;115&quot; r=&quot;9&quot; fill=&quot;#46c3e6&quot; stroke=&quot;#fff&quot; stroke-width=&quot;3&quot;/&gt;&lt;text x=&quot;150&quot; y=&quot;146&quot; text-anchor=&quot;middle&quot; fill=&quot;#cfe&quot; font-size=&quot;11&quot;&gt;You&lt;/text&gt;&lt;/svg&gt;&#x27;}
+function u1(){
+ var p=+$(&quot;r1&quot;).value,rg=Math.round(p*3),c=p&gt;30?&quot;ok&quot;:p&gt;10?&quot;warn&quot;:&quot;bad&quot;,s=ST[sel],okS=s[1]&lt;=rg*0.9;
+ $(&quot;v1&quot;).textContent=p+&quot;%&quot;;
+ var al=p&gt;30?[&quot;Battery fine&quot;,&quot;Plenty of charge.&quot;]:p&gt;10?[&quot;⚠️ Low battery&quot;,&quot;Charge soon. Nearest stations shown on the map.&quot;]:p&gt;0?[&quot;🔴 Critical battery&quot;,&quot;Speed is limited to save power. Go to a reachable station or call for help.&quot;]:[&quot;🔴 Battery empty&quot;,&quot;Vehicle stopped. Call the emergency charging van.&quot;];
+ var tips=p&lt;=30&amp;&amp;p&gt;0?&quot;&lt;ul&gt;&lt;li&gt;Turn off the AC and extra lights.&lt;/li&gt;&lt;li&gt;Drive slowly and steadily.&lt;/li&gt;&lt;/ul&gt;&quot;:&quot;&quot;;
+ $(&quot;scr1&quot;).innerHTML=&#x27;&lt;div class=&quot;bar&quot;&gt;&lt;span&gt;🔋 &#x27;+p+&#x27;%&lt;/span&gt;&lt;span&gt;about &#x27;+rg+&#x27; km left&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;al &#x27;+c+&#x27;&quot;&gt;&lt;b&gt;&#x27;+al[0]+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+al[1]+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;+map(rg)+&#x27;&lt;div class=&quot;nav&quot;&gt;&lt;span&gt;Station &#x27;+s[0]+&#x27; · &#x27;+s[1]+&#x27; km · &lt;b style=&quot;color:&#x27;+(okS?&quot;#6fe0a0&quot;:&quot;#ff8f8f&quot;)+&#x27;&quot;&gt;&#x27;+(okS?&quot;Reachable&quot;:&quot;Too far&quot;)+&#x27;&lt;/b&gt;&lt;/span&gt;&lt;button id=&quot;go&quot;&gt;Navigate&lt;/button&gt;&lt;/div&gt;&#x27;+tips+&#x27;&lt;button id=&quot;van&quot; style=&quot;width:100%&quot;&gt;Call emergency charging van&lt;/button&gt;&#x27;+(vanOn?&#x27;&lt;div class=&quot;al ok&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;Request sent&lt;/b&gt;&lt;span&gt;Van arriving in about 25 minutes (simulated).&lt;/span&gt;&lt;/div&gt;&#x27;:&quot;&quot;)+&#x27;&lt;div class=&quot;muted&quot; style=&quot;margin-top:6px;font-size:.78rem&quot;&gt;Sample map. The real app would use Google Maps with live station data. Tap a pin to choose a station.&lt;/div&gt;&#x27;;
+ var ps=$(&quot;scr1&quot;).querySelectorAll(&quot;.pin&quot;);for(var i=0;i&lt;ps.length;i++)ps[i].onclick=function(){sel=+this.getAttribute(&quot;data-i&quot;);u1()};
+ $(&quot;van&quot;).onclick=function(){vanOn=true;u1()};
+ $(&quot;go&quot;).onclick=function(){$(&quot;go&quot;).textContent=&quot;Navigating…&quot;};
+}
+function u2(){
+ var t=+$(&quot;r2&quot;).value,sm=$(&quot;sm&quot;).checked,cr=$(&quot;cr&quot;).checked,lv=(sm||cr||t&gt;=60)?2:t&gt;=45?1:0;
+ $(&quot;v2&quot;).textContent=t+&quot; °C&quot;;
+ if(cr&amp;&amp;cd===null&amp;&amp;!cancelled){cd=10;tm=setInterval(function(){cd--;if(cd&lt;=0){clearInterval(tm);cd=0}u2()},1000)}
+ if(!cr){clearInterval(tm);cd=null;cancelled=false}
+ var al=lv===0?[&quot;ok&quot;,&quot;Battery normal&quot;,&quot;Temperature is safe.&quot;]:lv===1?[&quot;warn&quot;,&quot;⚠️ Battery getting hot&quot;,&quot;Slow down, switch off the AC and stop at a safe, open place.&quot;]:[&quot;bad&quot;,&quot;🔴 DANGER: stop and leave the vehicle&quot;,&quot;The battery is in danger. Follow the steps below.&quot;];
+ var body=&quot;&quot;;
+ if(lv===2){body=&#x27;&lt;ol&gt;&lt;li&gt;Stop safely and switch off the vehicle.&lt;/li&gt;&lt;li&gt;Get everyone out and move well away.&lt;/li&gt;&lt;li&gt;Call 112 and say it is an electric vehicle.&lt;/li&gt;&lt;li&gt;Do not touch or charge a damaged battery.&lt;/li&gt;&lt;/ol&gt;&#x27;;
+  if(cr){body+=cd&gt;0?&#x27;&lt;div class=&quot;al bad&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;Crash detected&lt;/b&gt;&lt;span&gt;Calling your emergency contact and 112 in &#x27;+cd+&#x27; s&lt;/span&gt;&lt;/div&gt;&lt;button id=&quot;okb&quot;&gt;I’m OK, cancel&lt;/button&gt;&#x27;:cancelled?&#x27;&lt;div class=&quot;al ok&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;Cancelled&lt;/b&gt;&lt;span&gt;No alert was sent.&lt;/span&gt;&lt;/div&gt;&#x27;:&#x27;&lt;div class=&quot;al bad&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;Alert sent&lt;/b&gt;&lt;span&gt;Emergency contact and 112 notified (simulated).&lt;/span&gt;&lt;/div&gt;&#x27;}
+  else body+=&#x27;&lt;div class=&quot;al bad&quot; style=&quot;margin-top:8px&quot;&gt;&lt;b&gt;Alert sent&lt;/b&gt;&lt;span&gt;Your emergency contact has been notified (simulated).&lt;/span&gt;&lt;/div&gt;&#x27;}
+ $(&quot;scr2&quot;).innerHTML=&#x27;&lt;div class=&quot;bar&quot;&gt;&lt;span&gt;🌡️ &#x27;+t+&#x27; °C&lt;/span&gt;&lt;span&gt;Battery temperature&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;al &#x27;+al[0]+&#x27;&quot;&gt;&lt;b&gt;&#x27;+al[1]+&#x27;&lt;/b&gt;&lt;span&gt;&#x27;+al[2]+&#x27;&lt;/span&gt;&lt;/div&gt;&#x27;+body;
+ if($(&quot;okb&quot;))$(&quot;okb&quot;).onclick=function(){clearInterval(tm);cancelled=true;cd=null;u2()};
+}
+$(&quot;r1&quot;).oninput=u1;$(&quot;r2&quot;).oninput=u2;$(&quot;sm&quot;).onchange=u2;$(&quot;cr&quot;).onchange=u2;
+$(&quot;x1&quot;).onclick=function(){vanOn=false;sel=0;$(&quot;r1&quot;).value=60;u1()};
+$(&quot;x2&quot;).onclick=function(){clearInterval(tm);cd=null;cancelled=false;$(&quot;r2&quot;).value=30;$(&quot;sm&quot;).checked=false;$(&quot;cr&quot;).checked=false;u2()};
+u1();u2();
+&lt;/script&gt;&lt;/body&gt;&lt;/html&gt;
+" hidden></iframe></main>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('[role=tab]'));
+  function show(k){
+    tabs.forEach(function(t){var on=t.getAttribute('data-k')===k;t.setAttribute('aria-selected',on);document.getElementById('f-'+t.getAttribute('data-k')).hidden=!on});
+  }
+  tabs.forEach(function(t){t.addEventListener('click',function(){var k=t.getAttribute('data-k');show(k);try{history.replaceState(null,'','#'+k)}catch(e){}})});
+  var z=1;
+  function applyZoom(){[].slice.call(document.querySelectorAll('iframe')).forEach(function(f){try{f.contentDocument.documentElement.style.zoom=z}catch(e){}})}
+  document.getElementById('zi').onclick=function(){z=Math.min(2,Math.round((z+0.2)*10)/10);applyZoom()};
+  document.getElementById('zo').onclick=function(){z=Math.max(0.8,Math.round((z-0.2)*10)/10);applyZoom()};
+  [].slice.call(document.querySelectorAll('iframe')).forEach(function(f){f.addEventListener('load',applyZoom)});
+  var h=(location.hash||'').slice(1);
+  if(['flood','help'].indexOf(h)>-1)show(h);
+})();
+</script></body></html>

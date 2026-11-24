@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>EV Project 3 Prototype</title>
+<title>EV SafeGuard | Safe Charging &amp; Emergency Help</title>
+<meta name="description" content="Safe charging in monsoon rain and quick help in an EV emergency.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EV SafeGuard | Safe Charging &amp; Emergency Help">
+<meta property="og:description" content="Safe charging in monsoon rain and quick help in an EV emergency.">
 <style>
 :root{--bg:#f1f5f6;--bar:#ffffff;--fg:#14262b;--muted:#4d6369;--line:#cbd8db;--accent:#0b6e8a;--at:#ffffff}
 @media (prefers-color-scheme:dark){:root{--bg:#0d1a1e;--bar:#14262b;--fg:#e3eef0;--muted:#9db4ba;--line:#2a434a;--accent:#4cc3e0;--at:#062028}}
@@ -23,7 +27,7 @@ iframe[hidden]{display:none}
 .zc{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--muted)}
 .zc button{font:inherit;font-size:.85rem;font-weight:700;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer}
 </style></head><body>
-<header><div class="top"><div class="kr"><div class="kicker">IDTL · EV prototype</div><div class="zc" role="group" aria-label="Screen size for projector"><span>Projector size</span><button type="button" id="zo" aria-label="Smaller">A−</button><button type="button" id="zi" aria-label="Larger">A+</button></div></div>
+<header><div class="top"><div class="kr"><div class="kicker">EV SafeGuard</div><div class="zc" role="group" aria-label="Screen size for projector"><span>Projector size</span><button type="button" id="zo" aria-label="Smaller">A−</button><button type="button" id="zi" aria-label="Larger">A+</button></div></div>
 <nav role="tablist" aria-label="Prototype sections"><button role="tab" id="t-flood" aria-controls="f-flood" aria-selected="true" data-k="flood">Safe Charge</button><button role="tab" id="t-help" aria-controls="f-help" aria-selected="false" data-k="help">Emergency Help</button></nav></div></header>
 <main><iframe id="f-flood" role="tabpanel" aria-labelledby="t-flood" title="Monsoon Safe Charge" srcdoc="&lt;title&gt;Monsoon Safe Charge&lt;/title&gt;
 &lt;meta name=&quot;claude:viewport-fit-sides&quot; content=&quot;cover&quot;&gt;
@@ -279,7 +283,7 @@ input[type=&quot;range&quot;] { width: 100%; accent-color: var(--accent); height
 
 &lt;main class=&quot;wrap&quot;&gt;
   &lt;header&gt;
-    &lt;span class=&quot;kicker&quot;&gt;IDTL · EV charging safety&lt;/span&gt;
+    &lt;span class=&quot;kicker&quot;&gt;EV charging safety&lt;/span&gt;
     &lt;h1&gt;Monsoon Safe Charge&lt;/h1&gt;
     &lt;p&gt;A charging station that protects its socket from rain, cuts power when water rises, and tells drivers which stations are safe before they arrive.&lt;/p&gt;
     &lt;p class=&quot;note&quot;&gt;This is a simulation of the planned hardware. The rain switch and water slider stand in for the real sensors, and everything runs on low voltage in the actual prototype plan.&lt;/p&gt;

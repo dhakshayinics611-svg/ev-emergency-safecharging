@@ -26,10 +26,49 @@ iframe[hidden]{display:none}
 .kr{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .zc{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--muted)}
 .zc button{font:inherit;font-size:.85rem;font-weight:700;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer}
+[hidden]{display:none!important}
+#welcome{flex:1;overflow:auto;padding:max(18px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(24px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.card{max-width:480px;margin:0 auto;background:var(--bar);border:1px solid var(--line);border-radius:16px;padding:22px 18px}
+.card h1{margin:4px 0 6px;font-size:1.6rem;line-height:1.2}
+.card p{margin:0 0 16px;color:var(--muted);font-size:.95rem;line-height:1.45}
+.card label,.card .lb{display:block;font-weight:600;font-size:.9rem;margin:14px 0 6px}
+.card input[type=text]{width:100%;font:inherit;font-size:16px;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:12px}
+.card input[type=text]:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.types input{position:absolute;opacity:0;pointer-events:none}
+.types label{margin:0;text-align:center;padding:12px 4px;border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600;font-size:.9rem;background:var(--bg)}
+.types input:checked+label{background:var(--accent);border-color:var(--accent);color:var(--at)}
+.types input:focus-visible+label{outline:2px solid var(--accent);outline-offset:2px}
+.err{color:#c62828;font-size:.85rem;min-height:1.2em;margin:10px 0 0}
+@media (prefers-color-scheme:dark){.err{color:#ff8a80}}
+.go{width:100%;margin-top:8px;font:inherit;font-weight:700;font-size:1rem;color:var(--at);background:var(--accent);border:0;border-radius:12px;padding:14px;cursor:pointer}
+.note{font-size:.78rem;color:var(--muted);text-align:center;margin:12px 0 0}
+.who{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:.85rem;color:var(--muted);padding:4px 0 0}
+.who span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.who button{flex:0 0 auto;font:inherit;font-size:.8rem;color:var(--accent);background:none;border:0;text-decoration:underline;cursor:pointer;padding:2px}
 </style></head><body>
-<header><div class="top"><div class="kr"><div class="kicker">EV SafeGuard</div><div class="zc" role="group" aria-label="Screen size for projector"><span>Projector size</span><button type="button" id="zo" aria-label="Smaller">A−</button><button type="button" id="zi" aria-label="Larger">A+</button></div></div>
+<section id="welcome" aria-labelledby="wt"><div class="card">
+<div class="kicker">EV SafeGuard</div>
+<h1 id="wt">Welcome</h1>
+<p>Tell us a little about your vehicle, then start. It takes under a minute.</p>
+<form id="wf" novalidate>
+<label for="un">Your name</label><input id="un" type="text" autocomplete="name" maxlength="40" placeholder="e.g. Ananya">
+<label for="vn">Vehicle number</label><input id="vn" type="text" autocapitalize="characters" autocomplete="off" maxlength="14" placeholder="e.g. KA 01 AB 1234">
+<label for="vm">Vehicle model</label><input id="vm" type="text" autocomplete="off" maxlength="40" placeholder="e.g. Ather 450X, Nexon EV">
+<div class="lb" id="vtl">Type of vehicle</div>
+<div class="types" role="radiogroup" aria-labelledby="vtl">
+<input type="radio" name="vt" id="v2" value="2-wheeler"><label for="v2">2-wheeler</label>
+<input type="radio" name="vt" id="v3" value="3-wheeler"><label for="v3">3-wheeler</label>
+<input type="radio" name="vt" id="v4" value="4-wheeler"><label for="v4">4-wheeler</label>
+</div>
+<p class="err" id="er" role="alert"></p>
+<button class="go" type="submit">Start</button>
+<p class="note">Your details stay on this phone. They are not sent anywhere.</p>
+</form></div></section>
+<header id="hdr" hidden><div class="top"><div class="kr"><div class="kicker">EV SafeGuard</div><div class="zc" role="group" aria-label="Screen size for projector"><span>Projector size</span><button type="button" id="zo" aria-label="Smaller">A−</button><button type="button" id="zi" aria-label="Larger">A+</button></div></div>
+<div class="who"><span id="whoTxt"></span><button type="button" id="chg">Change details</button></div>
 <nav role="tablist" aria-label="Prototype sections"><button role="tab" id="t-flood" aria-controls="f-flood" aria-selected="true" data-k="flood">Safe Charge</button><button role="tab" id="t-help" aria-controls="f-help" aria-selected="false" data-k="help">Emergency Help</button></nav></div></header>
-<main><iframe id="f-flood" role="tabpanel" aria-labelledby="t-flood" title="Monsoon Safe Charge" srcdoc="&lt;title&gt;Monsoon Safe Charge&lt;/title&gt;
+<main id="app" hidden><iframe id="f-flood" role="tabpanel" aria-labelledby="t-flood" title="Monsoon Safe Charge" srcdoc="&lt;title&gt;Monsoon Safe Charge&lt;/title&gt;
 &lt;meta name=&quot;claude:viewport-fit-sides&quot; content=&quot;cover&quot;&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;
 &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
@@ -636,6 +675,33 @@ u1();u2();
   document.getElementById('zo').onclick=function(){z=Math.max(0.8,Math.round((z-0.2)*10)/10);applyZoom()};
   [].slice.call(document.querySelectorAll('iframe')).forEach(function(f){f.addEventListener('load',applyZoom)});
   var h=(location.hash||'').slice(1);
-  if(['flood','help'].indexOf(h)>-1)show(h);
+  var KEY='evsg_user';
+  function load(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}}
+  function save(u){try{localStorage.setItem(KEY,JSON.stringify(u))}catch(e){}}
+  var wel=document.getElementById('welcome'),hdr=document.getElementById('hdr'),app=document.getElementById('app'),er=document.getElementById('er');
+  function enter(u){
+    wel.hidden=true;hdr.hidden=false;app.hidden=false;
+    document.getElementById('whoTxt').textContent='Hi '+u.name+' \u00b7 '+u.type+' \u00b7 '+u.num+' \u00b7 '+u.model;
+    show(['flood','help'].indexOf(h)>-1?h:'flood');
+  }
+  function welcome(){
+    hdr.hidden=true;app.hidden=true;wel.hidden=false;er.textContent='';
+    var u=load();
+    if(u){document.getElementById('un').value=u.name;document.getElementById('vn').value=u.num;document.getElementById('vm').value=u.model;
+      [].slice.call(document.querySelectorAll('input[name=vt]')).forEach(function(r){r.checked=(r.value===u.type)})}
+    window.scrollTo(0,0);
+  }
+  document.getElementById('vn').addEventListener('input',function(){this.value=this.value.toUpperCase()});
+  document.getElementById('wf').addEventListener('submit',function(e){
+    e.preventDefault();
+    var n=document.getElementById('un').value.trim(),v=document.getElementById('vn').value.trim(),m=document.getElementById('vm').value.trim(),t=document.querySelector('input[name=vt]:checked');
+    if(!n){er.textContent='Please enter your name.';document.getElementById('un').focus();return}
+    if(v.length<4){er.textContent='Please enter your vehicle number.';document.getElementById('vn').focus();return}
+    if(!m){er.textContent='Please enter your vehicle model.';document.getElementById('vm').focus();return}
+    if(!t){er.textContent='Please choose 2-wheeler, 3-wheeler or 4-wheeler.';return}
+    var u={name:n,num:v,model:m,type:t.value};save(u);enter(u);
+  });
+  document.getElementById('chg').addEventListener('click',welcome);
+  welcome();
 })();
 </script></body></html>
